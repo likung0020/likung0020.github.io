@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>海角社区-海角社区官网入口_海角社区网页版_海角社区论坛交流</title>
+<meta name="description" content="海角社区主题首页，汇集社区入口说明、板块导航、内容浏览与讨论交流方式，帮助你了解海角社区的页面结构、使用路径与社区氛围。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f2e3d'/%3E%3Cpath d='M10 40c6-10 12-10 18 0s12 10 18 0 8-6 8-6' fill='none' stroke='%2349c2b8' stroke-width='4' stroke-linecap='round'/%3E%3Ccircle cx='45' cy='22' r='5' fill='%23f2b544'/%3E%3C/svg%3E">
+<style>
+:root{
+  --ink:#0f2e3d;
+  --ink-soft:#2b4a58;
+  --sea:#12667a;
+  --teal:#49c2b8;
+  --sand:#f5f1e8;
+  --paper:#ffffff;
+  --amber:#e8a93a;
+  --line:#d7dfe2;
+  --muted:#5c7280;
+  --radius:16px;
+  --shadow:0 10px 30px rgba(15,46,61,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",system-ui,sans-serif;
+  color:var(--ink);
+  background:var(--sand);
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--sea);text-decoration:none}
+a:hover{text-decoration:underline}
+img,svg{display:block;max-width:100%}
+.wrap{width:min(1120px,92vw);margin:0 auto}
+
+/* header */
+header.site{
+  position:sticky;top:0;z-index:50;
+  background:rgba(245,241,232,.92);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.nav{
+  display:flex;align-items:center;gap:20px;
+  padding:12px 0;flex-wrap:wrap;
+}
+.logo{
+  display:flex;align-items:center;gap:10px;
+  font-weight:800;font-size:1.18rem;letter-spacing:.5px;
+  color:var(--ink);white-space:nowrap;
+}
+.logo:hover{text-decoration:none}
+.logo .mark{
+  width:38px;height:38px;border-radius:11px;
+  background:linear-gradient(150deg,#0f2e3d,#12667a 60%,#1d8f8f);
+  display:grid;place-items:center;flex:0 0 auto;
+  box-shadow:0 4px 12px rgba(18,102,122,.28);
+}
+.nav-links{
+  display:flex;gap:4px;flex-wrap:wrap;margin-left:auto;
+  list-style:none;padding:0;margin-top:0;margin-bottom:0;
+}
+.nav-links a{
+  display:inline-block;padding:7px 13px;border-radius:999px;
+  color:var(--ink-soft);font-size:.94rem;font-weight:500;
+}
+.nav-links a:hover{background:#e7e2d6;text-decoration:none;color:var(--ink)}
+
+/* buttons */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:11px 22px;border-radius:999px;font-weight:700;
+  font-size:.96rem;border:1px solid transparent;cursor:pointer;
+  transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+}
+.btn:hover{text-decoration:none;transform:translateY(-1px)}
+.btn-primary{background:var(--ink);color:#fff;box-shadow:0 8px 20px rgba(15,46,61,.22)}
+.btn-primary:hover{background:#143d50}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
+.btn-disabled{
+  background:#dfe5e7;color:#7d8f98;cursor:not-allowed;
+  pointer-events:none;
+}
+
+/* hero */
+.hero{
+  position:relative;overflow:hidden;
+  background:
+    radial-gradient(900px 380px at 82% -10%, rgba(73,194,184,.28), transparent 70%),
+    linear-gradient(170deg,#0f2e3d 0%,#123c4d 55%,#155066 100%);
+  color:#eef7f7;
+  padding:64px 0 72px;
+}
+.hero::after{
+  content:"";position:absolute;inset:auto 0 -1px 0;height:70px;
+  background:var(--sand);
+  clip-path:polygon(0 100%,0 45%,12% 62%,26% 38%,40% 60%,55% 30%,70% 56%,84% 34%,100% 58%,100% 100%);
+  opacity:.9;
+}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:center}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:.82rem;letter-spacing:2px;text-transform:uppercase;
+  color:var(--teal);font-weight:700;margin-bottom:14px;
+}
+.eyebrow::before{content:"";width:26px;height:2px;background:var(--teal);border-radius:2px}
+h1{
+  font-size:clamp(2rem,4.2vw,3.1rem);
+  line-height:1.2;margin:0 0 16px;font-weight:800;letter-spacing:1px;
+}
+.hero p.lead{
+  font-size:1.02rem;color:#c8dedf;max-width:34em;margin:0 0 26px;
+}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.hero .btn-primary{background:var(--teal);color:#08303a;box-shadow:0 10px 24px rgba(73,194,184,.28)}
+.hero .btn-primary:hover{background:#5fd4c9}
+.hero .btn-ghost{color:#e8f6f6;border-color:rgba(232,246,246,.5)}
+.hero .btn-ghost:hover{background:rgba(255,255,255,.1)}
+.hero-note{font-size:.82rem;color:#9fc0c4;margin-top:16px}
+
+.hero-art{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:22px;padding:18px;
+  backdrop-filter:blur(4px);
+}
+.hero-art svg{width:100%;height:auto}
+
+/* sections */
+section{padding:56px 0}
+.sec-head{max-width:44em;margin-bottom:30px}
+.sec-head h2{
+  font-size:clamp(1.35rem,2.4vw,1.75rem);
+  margin:0 0 10px;font-weight:800;letter-spacing:.5px;
+}
+.sec-head p{margin:0;color:var(--muted)}
+.kicker{
+  font-size:.8rem;font-weight:700;letter-spacing:2px;
+  color:var(--sea);text-transform:uppercase;margin-bottom:8px;display:block;
+}
+
+/* cards */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{
+  background:var(--paper);border:1px solid var(--line);
+  border-radius:var(--radius);padding:24px;
+  box-shadow:var(--shadow);
+  display:flex;flex-direction:column;gap:10px;
+}
+.card .ico{
+  width:44px;height:44px;border-radius:12px;
+  background:#e6f4f3;color:var(--sea);
+  display:grid;place-items:center;
+}
+.card h3{margin:0;font-size:1.06rem;font-weight:700}
+.card p{margin:0;color:var(--muted);font-size:.94rem}
+.card .tag{
+  align-self:flex-start;font-size:.76rem;font-weight:700;
+  color:#8a6120;background:#fbf0d7;border-radius:999px;padding:3px 10px;
+}
+
+/* board list */
+.board{
+  background:var(--paper);border:1px solid var(--line);
+  border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);
+}
+.board-row{
+  display:grid;grid-template-columns:1.4fr 2.1fr auto;
+  gap:16px;align-items:center;
+  padding:18px 22px;border-bottom:1px solid var(--line);
+}
+.board-row:last-child{border-bottom:0}
+.board-row:hover{background:#fbfaf6}
+.board-row .name{font-weight:700;display:flex;align-items:center;gap:10px}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--teal);flex:0 0 auto}
+.dot.amber{background:var(--amber)}
+.dot.sea{background:var(--sea)}
+.board-row .desc{color:var(--muted);font-size:.92rem;margin:0}
+.board-row .meta{font-size:.82rem;color:#8a9aa3;white-space:nowrap}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;counter-reset:step}
+.step{
+  position:relative;background:var(--paper);border:1px solid var(--line);
+  border-radius:var(--radius);padding:26px 22px 22px;
+}
+.step::before{
+  counter-increment:step;content:"0" counter(step);
+  font-size:1.6rem;font-weight:800;color:var(--teal);
+  display:block;margin-bottom:8px;letter-spacing:1px;
+}
+.step h3{margin:0 0 8px;font-size:1.02rem}
+.step p{margin:0;color:var(--muted);font-size:.93rem}
+
+/* article block */
+.article-band{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.article-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:40px}
+.prose h3{font-size:1.08rem;margin:26px 0 8px}
+.prose h3:first-child{margin-top:0}
+.prose p{margin:0 0 14px;color:var(--ink-soft);font-size:.97rem}
+.aside-box{
+  background:var(--sand);border:1px solid var(--line);
+  border-radius:var(--radius);padding:22px;height:fit-content;
+}
+.aside-box h4{margin:0 0 12px;font-size:.98rem}
+.aside-box ul{margin:0;padding-left:18px;color:var(--muted);font-size:.92rem}
+.aside-box li{margin-bottom:8px}
+.aside-box .small{font-size:.84rem;color:#8a9aa3;margin:12px 0 0}
+
+/* faq */
+.faq{display:grid;gap:12px}
+details{
+  background:var(--paper);border:1px solid var(--line);
+  border-radius:12px;padding:16px 20px;
+}
+details[open]{border-color:#b9d9d6;box-shadow:var(--shadow)}
+summary{
+  cursor:pointer;font-weight:700;font-size:.98rem;list-style:none;
+  display:flex;justify-content:space-between;gap:12px;align-items:center;
+}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-weight:700;color:var(--sea);font-size:1.2rem}
+details[open] summary::after{content:"–"}
+details p{margin:12px 0 0;color:var(--muted);font-size:.94rem}
+
+/* download strip */
+.dl{
+  display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap;
+  background:linear-gradient(135deg,#0f2e3d,#155066);
+  color:#eef7f7;border-radius:20px;padding:30px 32px;
+}
+.dl h3{margin:0 0 6px;font-size:1.2rem}
+.dl p{margin:0;color:#a9c7cb;font-size:.92rem;max-width:40em}
+.dl .btn-disabled{background:rgba(255,255,255,.14);color:#cfe3e4}
+
+/* footer */
+footer.site{
+  background:#0c2531;color:#a9c0c6;padding:44px 0 28px;font-size:.92rem;
+}
+.foot-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:32px;margin-bottom:28px}
+.foot-grid h4{color:#e8f3f3;font-size:.95rem;margin:0 0 12px}
+.foot-grid p{margin:0 0 10px;line-height:1.7}
+.foot-grid ul{list-style:none;margin:0;padding:0}
+.foot-grid li{margin-bottom:8px}
+.foot-grid a{color:#a9c0c6}
+.foot-grid a:hover{color:#fff}
+.foot-bottom{
+  border-top:1px solid rgba(255,255,255,.12);padding-top:18px;
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  color:#7f9aa2;font-size:.84rem;
+}
+
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr;gap:32px}
+  .hero-art{order:2}
+  .cards{grid-template-columns:1fr 1fr}
+  .steps{grid-template-columns:1fr}
+  .article-grid{grid-template-columns:1fr;gap:26px}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .board-row{grid-template-columns:1fr;gap:6px}
+  .board-row .meta{white-space:normal}
+}
+@media (max-width:640px){
+  .nav-links{margin-left:0;width:100%;order:3;gap:2px}
+  .nav-links a{padding:6px 10px;font-size:.88rem}
+  .hero{padding:44px 0 60px}
+  .cards{grid-template-columns:1fr}
+  section{padding:42px 0}
+  .dl{padding:24px}
+  .foot-grid{grid-template-columns:1fr}
+}
+</style>
+    <script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav">
+    <a class="logo" href="#top" aria-label="海角社区 首页">
+      <span class="mark" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#49c2b8" stroke-width="2" stroke-linecap="round">
+          <path d="M2 15c2.6-4.4 5.2-4.4 7.8 0s5.2 4.4 7.8 0 3.4-2.6 3.4-2.6"/>
+          <circle cx="17" cy="7" r="2.2" fill="#f2b544" stroke="none"/>
+        </svg>
+      </span>
+      海角社区
+    </a>
+    <ul class="nav-links">
+      <li><a href="#intro">社区概览</a></li>
+      <li><a href="#boards">板块导航</a></li>
+      <li><a href="#guide">使用路径</a></li>
+      <li><a href="#read">阅读与讨论</a></li>
+      <li><a href="#faq">常见问题</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow">主题首页 · 社区使用指南</span>
+        <h1>海角社区</h1>
+        <p class="lead">海角社区是一个以话题板块为组织方式的交流空间。这里整理首页的板块结构、内容浏览顺序与讨论参与方式，方便第一次到访的读者快速找到想看的主题。</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#boards">查看板块导航</a>
+          <a class="btn btn-ghost" href="#guide">了解使用路径</a>
+        </div>
+        <p class="hero-note">页面为海角社区主题介绍页，内容侧重结构说明与阅读路径。</p>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 420 320" role="presentation">
+          <defs>
+            <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#49c2b8" stop-opacity=".9"/>
+              <stop offset="1" stop-color="#1d8f8f" stop-opacity=".25"/>
+            </linearGradient>
+          </defs>
+          <rect x="18" y="26" width="384" height="268" rx="18" fill="none" stroke="rgba(255,255,255,.22)"/>
+          <path d="M18 232 C 70 196, 110 262, 160 224 S 250 190, 300 226 S 370 200, 402 216" fill="none" stroke="url(#g1)" stroke-width="3"/>
+          <path d="M18 258 C 80 226, 128 288, 182 250 S 272 218, 322 252 S 378 228, 402 242" fill="none" stroke="rgba(73,194,184,.45)" stroke-width="2"/>
+          <circle cx="300" cy="86" r="22" fill="#f2b544" opacity=".9"/>
+          <g stroke="rgba(255,255,255,.5)" stroke-width="2" stroke-linecap="round">
+            <line x1="52" y1="70" x2="150" y2="70"/>
+            <line x1="52" y1="90" x2="188" y2="90"/>
+            <line x1="52" y1="110" x2="128" y2="110"/>
+          </g>
+          <g fill="rgba(255,255,255,.16)">
+            <rect x="52" y="140" width="96" height="56" rx="10"/>
+            <rect x="162" y="140" width="96" height="56" rx="10"/>
+            <rect x="272" y="140" width="96" height="56" rx="10"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- INTRO -->
+  <section id="intro">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker">社区概览</span>
+        <h2>海角社区首页在讲什么</h2>
+        <p>一个社区首页的价值，在于让人在最短时间内判断“这里有哪些内容、从哪里开始看”。以下三块内容分别对应主题定位、内容组织与访问方式。</p>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <span class="ico" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h10M4 18h7"/></svg>
+          </span>
+          <h3>板块化组织</h3>
+          <p>海角社区以话题板块划分内容，首页承担索引作用：读者先看板块名称与说明，再进入具体讨论，避免在大量条目中迷失方向。</p>
+        </div>
+        <div class="card">
+          <span class="ico" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+          </span>
+          <h3>按主题检索</h3>
+          <p>进入海角社区前，先明确想读的方向，再用板块导航定位。首页的导航与板块说明就是为这一步准备的，比逐条翻阅更高效。</p>
+        </div>
+        <div class="card">
+          <span class="ico" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>
+          </span>
+          <h3>讨论与参与</h3>
+          <p>阅读之后可以参与讨论。海角社区的交流以具体话题为单位展开，先读原有回复再发言，能让讨论保持在同一条线索上。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOARDS -->
+  <section id="boards" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker">板块导航</span>
+        <h2>海角社区常见板块类型</h2>
+        <p>下表按功能归类，展示社区中常见的板块形态与各自承担的阅读任务。具体板块名称与开放情况以站内实际页面为准。</p>
+      </div>
+      <div class="board">
+        <div class="board-row">
+          <div class="name"><span class="dot"></span>综合话题区</div>
+          <p class="desc">放置跨领域的内容与日常分享，适合初次进入海角社区时了解整体氛围与讨论风格。</p>
+          <span class="meta">入门首选</span>
+        </div>
+        <div class="board-row">
+          <div class="name"><span class="dot amber"></span>专题讨论区</div>
+          <p class="desc">围绕单一主题持续积累回复，内容相对集中，适合带着明确问题来查阅的读者。</p>
+          <span class="meta">主题集中</span>
+        </div>
+        <div class="board-row">
+          <div class="name"><span class="dot sea"></span>资源与整理区</div>
+          <p class="desc">收纳可复用的资料、清单与经验总结，浏览时建议先看置顶与整理帖，再读零散回复。</p>
+          <span class="meta">便于查阅</span>
+        </div>
+        <div class="board-row">
+          <div class="name"><span class="dot"></span>问答互助区</div>
+          <p class="desc">用于提出具体问题并获得回应。提问时把背景与已尝试的方法写清楚，更容易得到有效答复。</p>
+          <span class="meta">互动为主</span>
+        </div>
+        <div class="board-row">
+          <div class="name"><span class="dot amber"></span>站务与公告区</div>
+          <p class="desc">发布规则更新、版块调整与使用说明。进入海角社区后先读一遍公告，可减少后续误解。</p>
+          <span class="meta">规则参考</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GUIDE -->
+  <section id="guide" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker">使用路径</span>
+        <h2>从首页到参与讨论的三步</h2>
+        <p>把访问动作拆成三步，是海角社区首页希望提供的实际帮助：先定位，再阅读，最后参与。</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <h3>先确定方向</h3>
+          <p>浏览板块说明，选一个与目的最接近的区域。若只是想了解社区风格，从综合话题区进入通常最省时间。</p>
+        </div>
+        <div class="step">
+          <h3>再读置顶与整理</h3>
+          <p>每个板块的置顶帖与整理帖往往覆盖高频问题。读完后仍不清楚，再翻看近期讨论，可减少重复提问。</p>
+        </div>
+        <div class="step">
+          <h3>最后参与交流</h3>
+          <p>回复时引用具体内容、说明自己的情况。海角社区的讨论以线索连贯为佳，补充细节比简短表态更有价值。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- READ / ARTICLE -->
+  <div class="article-band" id="read">
+    <section>
+      <div class="wrap article-grid">
+        <div class="prose">
+          <span class="kicker">阅读与讨论</span>
+          <h2 style="font-size:clamp(1.35rem,2.4vw,1.75rem);margin:0 0 16px;">怎样在海角社区高效阅读</h2>
+          <h3>按线索而非按时间</h3>
+          <p>社区内容天然按时间堆积，但真正有用的信息往往分布在同一条讨论线索里。阅读时先看主题帖的完整表述，再顺着回复理解不同观点之间的关系，比只看最新几条更容易形成完整判断。</p>
+          <h3>区分事实与观点</h3>
+          <p>讨论中既有可核对的事实，也有个人经验与倾向性表达。海角社区的内容由参与者共同产生，阅读时留意说话者的依据与适用范围，能减少把个例当作通例的情况。</p>
+          <h3>参与时保持具体</h3>
+          <p>有效的回复通常包含三部分：针对哪一点、自己遇到的情况、得出的结论。这样的回复对后来的读者也有参考意义。若发现信息已过时，可以在回复中说明时间背景，帮助他人理解上下文。</p>
+          <h3>尊重版块边界</h3>
+          <p>不同板块承担不同任务，把提问放在问答区、把整理放在资源区，能让海角社区的内容保持可检索。发布前花半分钟确认位置，是对他人阅读体验的直接帮助。</p>
+        </div>
+        <aside class="aside-box">
+          <h4>访问提示</h4>
+          <ul>
+            <li>先读公告与置顶，再进入讨论。</li>
+            <li>用板块名称定位，减少无效翻阅。</li>
+            <li>引用具体内容再回复，讨论更连贯。</li>
+            <li>涉及外部信息时，注意核对来源与时间。</li>
+          </ul>
+          <p class="small">本页为海角社区主题介绍页，板块名称与开放情况以站内实际页面为准。</p>
+        </aside>
+      </div>
+    </section>
+  </div>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker">常见问题</span>
+        <h2>关于海角社区的常见疑问</h2>
+        <p>以下问题集中在“怎么开始、怎么看、怎么参与”三个方向，回答尽量给出可执行的步骤。</p>
+      </div>
+      <div class="faq">
+        <details open>
+          <summary>第一次访问海角社区，应该从哪里开始？</summary>
+          <p>建议先看站务与公告区了解规则，再进入综合话题区感受讨论风格。若已有明确目标，直接用板块导航定位到对应主题区，会比逐页浏览更快。</p>
+        </details>
+        <details>
+          <summary>首页的板块列表是固定不变的吗？</summary>
+          <p>本页列出的板块类型用于说明社区的组织方式，属于结构层面的归纳。实际板块名称、数量与开放状态可能随站点调整，请以站内页面显示为准。</p>
+        </details>
+        <details>
+          <summary>如何让提问更容易得到回复？</summary>
+          <p>把问题写在合适的板块，补充背景、已尝试的方法与期望得到的信息类型。信息完整的提问对回答者更友好，也更容易被后来的读者检索到。</p>
+        </details>
+        <details>
+          <summary>页面上的下载入口现在可用吗？</summary>
+          <p>当前下载入口为占位状态，按钮已按不可用处理，暂不跳转。后续替换为真实地址后即可正常使用，页面其他内容不受影响。</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOWNLOAD -->
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="dl">
+        <div>
+          <h3>海角社区主题页资料</h3>
+          <p>包含本页的板块结构说明与阅读路径整理，便于离线查阅。当前为占位入口，正式文件上线后开放下载。</p>
+        </div>
+        <a class="btn btn-disabled" href="#" data-download-placeholder="true" aria-disabled="true" tabindex="-1">下载</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h4>海角社区</h4>
+        <p>海角社区主题介绍页，围绕板块结构、内容浏览与讨论参与整理使用说明，帮助访客快速建立对社区的完整认识。</p>
+      </div>
+      <div>
+        <h4>页面导航</h4>
+        <ul>
+          <li><a href="#intro">社区概览</a></li>
+          <li><a href="#boards">板块导航</a></li>
+          <li><a href="#guide">使用路径</a></li>
+          <li><a href="#read">阅读与讨论</a></li>
+          <li><a href="#faq">常见问题</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>说明</h4>
+        <p>板块名称与开放情况以站内实际页面为准。</p>
+        <p>下载入口为占位状态，暂不可用。</p>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>海角社区 · 主题首页</span>
+      <span>内容侧重结构与阅读路径说明</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
