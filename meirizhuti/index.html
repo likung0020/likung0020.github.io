@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日主题大赛mrds-每日主题大赛主题作品_每日主题大赛参赛与作品浏览</title>
+<meta name="description" content="每日主题大赛mrds是一个围绕每日主题创作与展示的主题大赛页面，汇集当日主题、参赛作品、评选规则与往期回顾，方便访客了解每日主题大赛的参与方式与作品浏览路径。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231b2b4b'/%3E%3Cpath d='M18 40l8-18 6 12 6-12 8 18' fill='none' stroke='%23f6c453' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='32' cy='47' r='3' fill='%23f6c453'/%3E%3C/svg%3E">
+<style>
+:root{
+  --ink:#1b2b4b;
+  --ink-2:#2f4268;
+  --gold:#f0b429;
+  --gold-soft:#fdf3d8;
+  --paper:#fbfaf6;
+  --line:#e3ddcd;
+  --text:#333a45;
+  --muted:#6c7482;
+  --radius:16px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Source Han Sans SC",system-ui,sans-serif;
+  background:var(--paper);
+  color:var(--text);
+  line-height:1.75;
+  font-size:16px;
+}
+a{color:inherit;text-decoration:none;}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px;}
+img,svg{display:block;max-width:100%;}
+
+/* 页头 */
+.site-head{
+  position:sticky;top:0;z-index:50;
+  background:rgba(251,250,246,.94);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+}
+.head-inner{
+  display:flex;align-items:center;gap:18px;
+  min-height:70px;flex-wrap:wrap;
+}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--ink);font-size:17px;letter-spacing:.2px;}
+.brand .mark{
+  width:38px;height:38px;border-radius:11px;background:var(--ink);
+  display:grid;place-items:center;flex:none;
+}
+.nav{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap;}
+.nav a{
+  font-size:14.5px;color:var(--ink-2);padding:7px 12px;border-radius:999px;
+  transition:.2s;
+}
+.nav a:hover,.nav a:focus-visible{background:var(--gold-soft);color:var(--ink);outline:none;}
+.nav a.cta{background:var(--ink);color:#fff;}
+.nav a.cta:hover{background:var(--ink-2);color:#fff;}
+
+/* 首屏 */
+.hero{
+  padding:56px 0 44px;
+  background:
+    radial-gradient(900px 340px at 88% -10%,rgba(240,180,41,.22),transparent 70%),
+    linear-gradient(180deg,#fff 0%,var(--paper) 100%);
+  border-bottom:1px solid var(--line);
+}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:center;}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:13px;font-weight:700;color:var(--ink);
+  background:var(--gold-soft);border:1px solid #f2e2b0;
+  padding:5px 12px;border-radius:999px;letter-spacing:.4px;
+}
+h1{
+  font-size:clamp(26px,4vw,40px);
+  line-height:1.28;margin:18px 0 14px;color:var(--ink);
+  letter-spacing:.4px;font-weight:800;
+}
+.hero p.lead{font-size:16.5px;color:var(--muted);margin:0 0 24px;max-width:36em;}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center;}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:11px 20px;border-radius:12px;font-weight:700;font-size:15px;
+  border:1px solid transparent;transition:.2s;
+}
+.btn-primary{background:var(--ink);color:#fff;}
+.btn-primary:hover{background:var(--ink-2);}
+.btn-ghost{background:#fff;border-color:var(--line);color:var(--ink);}
+.btn-ghost:hover{border-color:var(--gold);background:var(--gold-soft);}
+.btn[aria-disabled="true"]{opacity:.75;cursor:default;}
+.hero-note{font-size:13px;color:var(--muted);margin-top:14px;}
+
+/* 首屏卡片 */
+.theme-card{
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  padding:22px;box-shadow:0 14px 34px -22px rgba(27,43,75,.45);
+}
+.theme-card h2{font-size:15px;margin:0 0 12px;color:var(--muted);font-weight:700;letter-spacing:.6px;}
+.theme-card .theme-name{font-size:20px;font-weight:800;color:var(--ink);margin:0 0 4px;}
+.theme-card .theme-sub{font-size:13.5px;color:var(--muted);margin:0 0 16px;}
+.mini-list{list-style:none;margin:0;padding:0;display:grid;gap:10px;}
+.mini-list li{
+  display:flex;justify-content:space-between;gap:12px;
+  font-size:14px;border-top:1px dashed var(--line);padding-top:10px;
+}
+.mini-list li:first-child{border-top:0;padding-top:0;}
+.mini-list span:last-child{color:var(--ink);font-weight:700;}
+
+/* 通用区块 */
+section{padding:52px 0;}
+.sec-head{max-width:44em;margin-bottom:26px;}
+.sec-head h2{
+  font-size:clamp(21px,2.6vw,26px);color:var(--ink);margin:0 0 8px;font-weight:800;letter-spacing:.3px;
+}
+.sec-head p{margin:0;color:var(--muted);font-size:15px;}
+h3{color:var(--ink);}
+
+/* 参赛方式 */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.step{
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  padding:20px;position:relative;
+}
+.step .num{
+  font-size:12px;font-weight:800;color:var(--ink);
+  background:var(--gold-soft);border:1px solid #f2e2b0;
+  width:26px;height:26px;border-radius:8px;display:grid;place-items:center;margin-bottom:12px;
+}
+.step h3{font-size:16px;margin:0 0 6px;}
+.step p{margin:0;font-size:14px;color:var(--muted);}
+
+/* 作品浏览 */
+.works{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.work{
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  overflow:hidden;display:flex;flex-direction:column;transition:.22s;
+}
+.work:hover{transform:translateY(-3px);box-shadow:0 18px 34px -24px rgba(27,43,75,.5);border-color:#efe0b6;}
+.work .thumb{background:var(--gold-soft);border-bottom:1px solid var(--line);}
+.work .body{padding:16px 18px 18px;}
+.work h3{font-size:16px;margin:0 0 6px;}
+.work p{margin:0;font-size:14px;color:var(--muted);}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px;}
+.tag{
+  font-size:12px;color:var(--ink-2);background:#f4f2ea;
+  border-radius:6px;padding:2px 8px;
+}
+
+/* 规则与评选 */
+.rules{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start;}
+.panel{
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px;
+}
+.panel h3{font-size:17px;margin:0 0 12px;}
+.panel ol,.panel ul{margin:0;padding-left:20px;font-size:14.5px;color:var(--text);}
+.panel li{margin-bottom:8px;}
+.panel li:last-child{margin-bottom:0;}
+.panel p.note{font-size:13.5px;color:var(--muted);margin:14px 0 0;}
+
+/* 往期 */
+.past{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.past-item{
+  background:#fff;border:1px solid var(--line);border-left:4px solid var(--gold);
+  border-radius:12px;padding:16px 18px;
+}
+.past-item .date{font-size:12.5px;color:var(--muted);letter-spacing:.5px;}
+.past-item h3{font-size:15.5px;margin:4px 0 6px;}
+.past-item p{margin:0;font-size:13.5px;color:var(--muted);}
+
+/* FAQ */
+.faq{display:grid;gap:12px;}
+details{
+  background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 18px;
+}
+details summary{
+  cursor:pointer;font-weight:700;color:var(--ink);font-size:15px;list-style:none;
+  display:flex;justify-content:space-between;gap:12px;align-items:center;
+}
+details summary::-webkit-details-marker{display:none;}
+details summary::after{content:"+";color:var(--gold);font-weight:800;font-size:18px;line-height:1;}
+details[open] summary::after{content:"–";}
+details p{margin:10px 0 0;font-size:14.5px;color:var(--muted);}
+
+/* 页尾 */
+.site-foot{
+  border-top:1px solid var(--line);background:#fff;padding:36px 0 30px;margin-top:14px;
+}
+.foot-inner{display:flex;gap:24px;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;}
+.foot-brand{max-width:34em;}
+.foot-brand strong{color:var(--ink);font-size:15.5px;display:block;margin-bottom:8px;}
+.foot-brand p{margin:0;font-size:13.5px;color:var(--muted);}
+.foot-links{display:flex;gap:18px;flex-wrap:wrap;font-size:13.5px;color:var(--ink-2);}
+.foot-links a:hover{color:var(--ink);text-decoration:underline;}
+.copyright{
+  margin-top:24px;padding-top:16px;border-top:1px dashed var(--line);
+  font-size:12.5px;color:var(--muted);display:flex;gap:12px;flex-wrap:wrap;justify-content:space-between;
+}
+
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr;gap:30px;}
+  .steps{grid-template-columns:1fr 1fr;}
+  .works{grid-template-columns:1fr 1fr;}
+  .rules{grid-template-columns:1fr;}
+  .past{grid-template-columns:1fr;}
+}
+@media (max-width:600px){
+  .head-inner{min-height:auto;padding:12px 0;gap:10px;}
+  .brand{font-size:15.5px;}
+  .nav{margin-left:0;width:100%;}
+  .nav a{padding:6px 10px;font-size:13.5px;}
+  .hero{padding:36px 0 32px;}
+  .steps,.works{grid-template-columns:1fr;}
+  section{padding:38px 0;}
+  .panel{padding:18px;}
+}
+</style>
+    <script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap head-inner">
+    <a class="brand" href="#top" aria-label="每日主题大赛mrds 首页">
+      <span class="mark" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+          <path d="M4 17l4-9 4 6 4-6 4 9" stroke="#f0b429" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="12" cy="20" r="1.4" fill="#f0b429"/>
+        </svg>
+      </span>
+      <span>每日主题大赛mrds</span>
+    </a>
+    <nav class="nav" aria-label="主导航">
+      <a href="#today">今日主题</a>
+      <a href="#join">参赛方式</a>
+      <a href="#works">作品浏览</a>
+      <a href="#rules">评选规则</a>
+      <a href="#faq">常见问题</a>
+      <a class="cta" href="#works">查看作品</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- 首屏 -->
+  <div class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow">每日一个主题 · 当天的创作现场</span>
+        <h1>每日主题大赛mrds</h1>
+        <p class="lead">每日主题大赛mrds 是一个按“每天一个主题”组织的创作与展示页面。访客可以先看当天主题，再浏览围绕它提交的作品，最后决定是否按参赛方式参与。这里把主题、作品与评选规则放在同一条阅读路径上，让每日主题大赛的参与不依赖额外说明。</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#today">查看今日主题</a>
+          <a class="btn" href="#works">浏览参赛作品</a>
+          <a class="btn btn-ghost" href="#" data-download-placeholder="true" aria-disabled="true" tabindex="-1">下载主题</a>
+        </div>
+        <p class="hero-note">下载主题入口正在整理，开放后可直接获取当日主题说明文件。</p>
+      </div>
+
+      <aside class="theme-card" aria-label="今日主题速览">
+        <h2>今日主题速览</h2>
+        <p class="theme-name">主题：一束光的方向</p>
+        <p class="theme-sub">创作方向：用画面或文字表达光线如何改变空间</p>
+        <ul class="mini-list">
+          <li><span>主题发布</span><span>每日更新</span></li>
+          <li><span>作品提交</span><span>当日有效</span></li>
+          <li><span>浏览方式</span><span>按主题归档</span></li>
+          <li><span>评选依据</span><span>主题贴合度</span></li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+
+  <!-- 今日主题 -->
+  <section id="today">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>今天的主题，先看懂再动手</h2>
+        <p>每日主题大赛mrds 的节奏是“一天一题”。当天的主题会写明创作方向与边界，参赛者在同一题目下提交作品，避免各自发挥导致评选难以对照。</p>
+      </div>
+      <div class="rules">
+        <div class="panel">
+          <h3>主题解读</h3>
+          <p style="margin:0 0 10px;font-size:14.5px;">以“一束光的方向”为例，题目关注的是光线与空间的关系，而不是单纯画一个光源。可以从三个角度切入：</p>
+          <ul>
+            <li>光从哪来：窗口、缝隙、灯、屏幕，都可作为光源起点。</li>
+            <li>光落在哪：被照亮的物体与留下的阴影同样重要。</li>
+            <li>光改变了什么：情绪、秩序、视线，都是可表达的方向。</li>
+          </ul>
+          <p class="note">主题说明只界定方向，不限制媒介。插画、摄影、短文案、图形设计都可以提交，但需要在作品说明里写清与主题的关联。</p>
+        </div>
+        <div class="panel">
+          <h3>当天的参与节奏</h3>
+          <ol>
+            <li>上午查看当日主题与创作方向，确认媒介与尺寸要求。</li>
+            <li>完成作品后附一段简短说明，讲清作品如何回应主题。</li>
+            <li>当日提交，作品进入当期展示与评选范围。</li>
+            <li>次日主题切换，前一日作品保留在往期归档中。</li>
+          </ol>
+          <p class="note">每日主题大赛mrds 的作品展示以主题为单位组织，浏览时可按日期回溯，不必逐条翻找。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 参赛方式 -->
+  <section id="join" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>参赛方式：四步完成一次参与</h2>
+        <p>每日主题大赛mrds 把参与流程压缩到四个动作，重点是让作品说明与主题真正对应，而不是堆砌技法。</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="num">1</div>
+          <h3>读题</h3>
+          <p>先读当日主题与创作方向，确认哪些表达属于题目范围，哪些只是装饰。</p>
+        </div>
+        <div class="step">
+          <div class="num">2</div>
+          <h3>创作</h3>
+          <p>选择自己熟悉的媒介完成作品，控制在一屏可读的完成度，保证主题清晰。</p>
+        </div>
+        <div class="step">
+          <div class="num">3</div>
+          <h3>写说明</h3>
+          <p>用两三句话说清作品与主题的关系，说明光源、方向或情绪上的取舍。</p>
+        </div>
+        <div class="step">
+          <div class="num">4</div>
+          <h3>提交</h3>
+          <p>当日提交作品与说明，进入当期展示；逾期作品归入往期浏览，不参与当期评选。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 作品浏览 -->
+  <section id="works">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>作品浏览：同一主题下的不同答案</h2>
+        <p>浏览页按主题分组展示作品。下面三件作品都回应“一束光的方向”，但切入点不同，正好说明每日主题大赛mrds 的评价重点在“如何回应”，而不在“画面是否相似”。</p>
+      </div>
+      <div class="works">
+        <article class="work">
+          <div class="thumb" aria-hidden="true">
+            <svg viewBox="0 0 320 170" role="img" aria-label="窗口斜光插画">
+              <rect width="320" height="170" fill="#fdf3d8"/>
+              <rect x="42" y="24" width="86" height="122" fill="#1b2b4b" opacity=".85"/>
+              <path d="M128 34 L262 128 L262 150 L128 150 Z" fill="#f0b429" opacity=".55"/>
+              <rect x="60" y="42" width="50" height="86" fill="#fbfaf6" opacity=".9"/>
+            </svg>
+          </div>
+          <div class="body">
+            <h3>《斜进来的下午》</h3>
+            <p>用窗口形成的光带分割室内空间，阴影作为第二主体。说明中强调“光的方向决定了家具的秩序”。</p>
+            <div class="tags"><span class="tag">插画</span><span class="tag">空间</span><span class="tag">当日提交</span></div>
+          </div>
+        </article>
+        <article class="work">
+          <div class="thumb" aria-hidden="true">
+            <svg viewBox="0 0 320 170" role="img" aria-label="灯光与人物插画">
+              <rect width="320" height="170" fill="#eef1f7"/>
+              <circle cx="232" cy="46" r="20" fill="#f0b429"/>
+              <path d="M232 66 L160 150 L304 150 Z" fill="#f0b429" opacity=".35"/>
+              <rect x="60" y="96" width="26" height="54" rx="6" fill="#1b2b4b"/>
+              <circle cx="73" cy="86" r="14" fill="#1b2b4b"/>
+            </svg>
+          </div>
+          <div class="body">
+            <h3>《灯下的人》</h3>
+            <p>以灯为唯一光源，人物只保留轮廓。作品说明指出“方向感来自人物朝向与光锥的重叠”。</p>
+            <div class="tags"><span class="tag">人物</span><span class="tag">光影</span><span class="tag">当日提交</span></div>
+          </div>
+        </article>
+        <article class="work">
+          <div class="thumb" aria-hidden="true">
+            <svg viewBox="0 0 320 170" role="img" aria-label="文字与光线图形">
+              <rect width="320" height="170" fill="#1b2b4b"/>
+              <path d="M20 150 L150 26 L196 26 L66 150 Z" fill="#f0b429" opacity=".5"/>
+              <rect x="196" y="52" width="92" height="10" rx="5" fill="#fbfaf6" opacity=".85"/>
+              <rect x="196" y="78" width="70" height="10" rx="5" fill="#fbfaf6" opacity=".6"/>
+              <rect x="196" y="104" width="52" height="10" rx="5" fill="#fbfaf6" opacity=".4"/>
+            </svg>
+          </div>
+          <div class="body">
+            <h3>《光的一行字》</h3>
+            <p>用斜向光带作为版面骨架，文字沿光的方向排列。说明强调“阅读顺序被光引导”。</p>
+            <div class="tags"><span class="tag">版式</span><span class="tag">文字</span><span class="tag">当日提交</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 评选规则 -->
+  <section id="rules" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>评选规则：先看主题，再看完成度</h2>
+        <p>每日主题大赛mrds 的评选不做跨主题比较，只在同一主题下横向对照，因此主题贴合度是第一顺位。</p>
+      </div>
+      <div class="rules">
+        <div class="panel">
+          <h3>三个评价维度</h3>
+          <ul>
+            <li><strong>主题贴合度：</strong>作品是否真正回应当日题目，而不是套用现成画面。</li>
+            <li><strong>表达清晰度：</strong>观众能否在短时间内理解作品想说什么。</li>
+            <li><strong>完成度：</strong>细节、构图、文字与说明是否一致，有无明显缺口。</li>
+          </ul>
+          <p class="note">三个维度按顺序权衡：主题偏离的作品，即使技法成熟也不进入当期推荐。</p>
+        </div>
+        <div class="panel">
+          <h3>浏览与展示约定</h3>
+          <ul>
+            <li>作品按主题归档，同一主题下的作品并列展示，不设跨主题总榜。</li>
+            <li>作品说明与作品一同展示，方便读者理解创作意图。</li>
+            <li>往期主题保留浏览入口，用于回看与对照不同日期的题目。</li>
+            <li>页面标注的状态以当期实际展示为准，不预先承诺评选结果。</li>
+          </ul>
+          <p class="note">每日主题大赛mrds 更接近一个持续更新的主题现场，而不是一次性赛事页面。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 往期 -->
+  <section id="past">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>往期主题：回看题目如何变化</h2>
+        <p>往期归档用来观察题目的走向。同一天的题目只有一个，但不同日期之间的难度与角度会变化，回看能帮助参赛者判断自己的表达习惯。</p>
+      </div>
+      <div class="past">
+        <div class="past-item">
+          <div class="date">前一期</div>
+          <h3>《被折叠的街角》</h3>
+          <p>关注空间转折处的视线遮挡，作品多以构图切割回应。</p>
+        </div>
+        <div class="past-item">
+          <div class="date">前二期</div>
+          <h3>《一件旧物的新位置》</h3>
+          <p>以物件迁移为线索，考察叙事与场景的关系。</p>
+        </div>
+        <div class="past-item">
+          <div class="date">前三期</div>
+          <h3>《安静的三秒钟》</h3>
+          <p>题目偏向时间感，作品说明需要交代停顿发生的位置。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" style="background:#fff;border-top:1px solid var(--line);">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>常见问题</h2>
+        <p>关于每日主题大赛mrds 的参与与浏览，先把最常被问到的几点说清楚。</p>
+      </div>
+      <div class="faq">
+        <details open>
+          <summary>每天的主题什么时候更新？</summary>
+          <p>主题按日切换，当天页面展示当期题目与创作方向。切换后，前一日作品保留在往期归档中，仍可浏览。</p>
+        </details>
+        <details>
+          <summary>可以提交几种媒介的作品？</summary>
+          <p>题目只界定方向，不限定媒介。插画、摄影、图形设计与短文案都可以，但作品说明需要写清与主题的关联。</p>
+        </details>
+        <details>
+          <summary>为什么下载主题的入口不可用？</summary>
+          <p>主题说明文件仍在整理中，下载入口暂未开放。开放后可直接获取当日主题说明，当前可先阅读页面上的主题解读。</p>
+        </details>
+        <details>
+          <summary>作品会跨主题比较吗？</summary>
+          <p>不会。每日主题大赛mrds 的评选在同一主题下进行，不同日期的题目各自独立，往期作品只用于回看与对照。</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-inner">
+      <div class="foot-brand">
+        <strong>每日主题大赛mrds</strong>
+        <p>以每日主题为线索的创作与展示页面，汇集当日题目、参赛作品、评选规则与往期归档。每日主题大赛mrds 希望让一次参与从读题开始，到作品被看见为止，都能在同一条路径上完成。</p>
+      </div>
+      <nav class="foot-links" aria-label="页尾导航">
+        <a href="#today">今日主题</a>
+        <a href="#join">参赛方式</a>
+        <a href="#works">作品浏览</a>
+        <a href="#rules">评选规则</a>
+        <a href="#past">往期主题</a>
+        <a href="#faq">常见问题</a>
+      </nav>
+    </div>
+    <div class="copyright">
+      <span>每日主题大赛mrds · 主题创作与作品浏览</span>
+      <span>页面内容以当期实际展示为准</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
