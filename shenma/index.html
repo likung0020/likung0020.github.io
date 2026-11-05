@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>神马-神马搜索使用指南_神马浏览器与移动搜索技巧</title>
+<meta name="description" content="神马主题首页：了解神马搜索的核心用法，包括移动端搜索、关键词技巧、结果筛选与常见问题，帮助你更高效地获取信息。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231b3a8c'/%3E%3Cpath d='M16 44c0-10 7-18 16-18s16 8 16 18' fill='none' stroke='%23ffd166' stroke-width='5' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='24' r='5' fill='%23ffffff'/%3E%3C/svg%3E">
+<style>
+:root{
+  --ink:#12203f;
+  --ink-soft:#3b4a6b;
+  --brand:#1b3a8c;
+  --brand-2:#2d5bd1;
+  --accent:#ffb703;
+  --bg:#f5f7fc;
+  --card:#ffffff;
+  --line:#e2e8f4;
+  --radius:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color:var(--ink);
+  background:var(--bg);
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--brand-2);text-decoration:none;}
+a:hover{text-decoration:underline;}
+img,svg{display:block;max-width:100%;}
+.wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 20px;}
+
+/* Header */
+.site-head{
+  position:sticky;top:0;z-index:50;
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.head-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0;}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.15rem;color:var(--ink);letter-spacing:.5px;}
+.logo:hover{text-decoration:none;}
+.logo svg{width:36px;height:36px;flex:none;}
+.nav{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.nav a{
+  padding:7px 12px;border-radius:999px;font-size:.92rem;color:var(--ink-soft);
+  transition:.2s;
+}
+.nav a:hover{background:#eaf0ff;color:var(--brand);text-decoration:none;}
+.nav .nav-cta{background:var(--brand);color:#fff;}
+.nav .nav-cta:hover{background:var(--brand-2);color:#fff;}
+
+/* Hero */
+.hero{
+  background:linear-gradient(160deg,#12204a 0%,#1b3a8c 55%,#2d5bd1 100%);
+  color:#fff;padding:64px 0 72px;position:relative;overflow:hidden;
+}
+.hero::after{
+  content:"";position:absolute;right:-120px;top:-80px;width:420px;height:420px;
+  border-radius:50%;background:radial-gradient(circle,rgba(255,183,3,.28),transparent 65%);
+}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;position:relative;z-index:1;}
+.hero h1{font-size:clamp(2.1rem,4.6vw,3.2rem);line-height:1.2;font-weight:800;letter-spacing:1px;}
+.hero .kicker{
+  display:inline-block;font-size:.82rem;letter-spacing:2px;text-transform:uppercase;
+  background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);
+  padding:4px 12px;border-radius:999px;margin-bottom:18px;color:#ffe9b0;
+}
+.hero p.lead{margin:18px 0 26px;font-size:1.02rem;color:#dbe4ff;max-width:36em;}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:12px 22px;border-radius:12px;font-weight:600;font-size:.96rem;
+  border:1px solid transparent;cursor:pointer;transition:.2s;
+}
+.btn-primary{background:var(--accent);color:#3a2600;}
+.btn-primary:hover{background:#ffc93c;text-decoration:none;}
+.btn-ghost{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.35);}
+.btn-ghost:hover{background:rgba(255,255,255,.18);text-decoration:none;}
+.btn[aria-disabled="true"]{opacity:.75;cursor:default;}
+.hero-figure{
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);
+  border-radius:22px;padding:22px;
+}
+.hero-figure .bar{display:flex;gap:6px;margin-bottom:16px;}
+.hero-figure .bar span{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.35);}
+.hero-figure .qbox{
+  background:#fff;color:var(--ink);border-radius:10px;padding:10px 14px;font-size:.9rem;
+  display:flex;align-items:center;gap:8px;font-weight:500;
+}
+.hero-figure .qbox svg{width:16px;height:16px;flex:none;}
+.hero-list{list-style:none;margin-top:16px;display:grid;gap:9px;}
+.hero-list li{
+  display:flex;gap:9px;align-items:flex-start;font-size:.88rem;color:#cfd9f7;
+}
+.hero-list li::before{
+  content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);margin-top:.62em;flex:none;
+}
+
+/* Sections */
+section{padding:58px 0;}
+.sec-head{max-width:720px;margin-bottom:34px;}
+.sec-head .tag{
+  display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:1.5px;color:var(--brand-2);
+  background:#e8efff;padding:3px 10px;border-radius:6px;margin-bottom:12px;
+}
+.sec-head h2{font-size:clamp(1.4rem,2.6vw,1.85rem);font-weight:800;color:var(--ink);line-height:1.35;}
+.sec-head p{margin-top:12px;color:var(--ink-soft);font-size:.98rem;}
+
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;}
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:24px;transition:.25s;
+}
+.card:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(27,58,140,.09);}
+.card .ico{
+  width:44px;height:44px;border-radius:12px;background:#eef3ff;display:flex;
+  align-items:center;justify-content:center;margin-bottom:16px;
+}
+.card .ico svg{width:24px;height:24px;}
+.card h3{font-size:1.06rem;font-weight:700;margin-bottom:8px;}
+.card p{font-size:.92rem;color:var(--ink-soft);}
+.card ul{margin-top:10px;padding-left:0;list-style:none;}
+.card ul li{font-size:.9rem;color:var(--ink-soft);padding-left:16px;position:relative;margin-bottom:6px;}
+.card ul li::before{content:"";position:absolute;left:0;top:.68em;width:6px;height:6px;border-radius:2px;background:var(--brand-2);}
+
+/* Steps */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;counter-reset:step;}
+.step{
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px 20px;
+  position:relative;
+}
+.step::before{
+  counter-increment:step;content:counter(step);
+  font-size:1.5rem;font-weight:800;color:#c9d7f8;display:block;margin-bottom:8px;
+}
+.step h3{font-size:1rem;font-weight:700;margin-bottom:6px;}
+.step p{font-size:.88rem;color:var(--ink-soft);}
+
+/* Filter tool */
+.tool{
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px;
+}
+.tool-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;}
+.tool input[type="text"]{
+  flex:1 1 240px;min-width:0;padding:12px 16px;border-radius:11px;border:1px solid var(--line);
+  font-size:.95rem;font-family:inherit;background:#f9fbff;color:var(--ink);
+}
+.tool input[type="text"]:focus{outline:2px solid #bfd0f9;border-color:var(--brand-2);}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
+.chip{
+  border:1px solid var(--line);background:#f5f8ff;color:var(--ink-soft);
+  padding:7px 14px;border-radius:999px;font-size:.86rem;cursor:pointer;transition:.2s;
+  font-family:inherit;
+}
+.chip:hover{border-color:var(--brand-2);color:var(--brand);}
+.chip.active{background:var(--brand);border-color:var(--brand);color:#fff;}
+.results{margin-top:20px;display:grid;gap:12px;}
+.result{
+  border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:#fbfdff;
+}
+.result h4{font-size:.98rem;font-weight:700;margin-bottom:4px;}
+.result p{font-size:.88rem;color:var(--ink-soft);}
+.result .meta{font-size:.78rem;color:#8194b8;margin-top:6px;}
+.empty{font-size:.9rem;color:#8194b8;padding:10px 0;}
+
+/* FAQ */
+.faq{display:grid;gap:12px;}
+details{
+  background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 20px;
+}
+details[open]{border-color:#c3d3f6;}
+summary{
+  cursor:pointer;font-weight:700;font-size:.98rem;list-style:none;
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+}
+summary::-webkit-details-marker{display:none;}
+summary::after{content:"+";font-size:1.2rem;color:var(--brand-2);font-weight:400;line-height:1;}
+details[open] summary::after{content:"–";}
+details p{margin-top:10px;font-size:.92rem;color:var(--ink-soft);}
+
+/* Notes / prose */
+.prose{
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px;
+}
+.prose h3{font-size:1.08rem;font-weight:700;margin:20px 0 8px;}
+.prose h3:first-child{margin-top:0;}
+.prose p{font-size:.95rem;color:var(--ink-soft);margin-bottom:12px;}
+.prose p:last-child{margin-bottom:0;}
+
+/* Footer */
+.site-foot{
+  background:#0e1a38;color:#9fb0d4;padding:44px 0 30px;font-size:.88rem;
+}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px;}
+.site-foot .logo{color:#fff;margin-bottom:12px;}
+.site-foot p{color:#8fa3ca;line-height:1.8;}
+.site-foot h4{color:#fff;font-size:.92rem;margin-bottom:12px;font-weight:700;}
+.site-foot ul{list-style:none;display:grid;gap:8px;}
+.site-foot a{color:#a9bce0;}
+.site-foot a:hover{color:#fff;}
+.foot-bottom{
+  margin-top:32px;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);
+  display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:#7b8fb8;font-size:.82rem;
+}
+
+/* Responsive */
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr;gap:30px;}
+  .grid-3{grid-template-columns:1fr 1fr;}
+  .steps{grid-template-columns:1fr 1fr;}
+  .foot-grid{grid-template-columns:1fr 1fr;}
+}
+@media (max-width:640px){
+  .head-inner{flex-direction:column;align-items:flex-start;gap:10px;}
+  .nav{width:100%;overflow-x:auto;flex-wrap:nowrap;padding-bottom:2px;}
+  .nav a{white-space:nowrap;font-size:.88rem;}
+  .hero{padding:44px 0 52px;}
+  .grid-3,.grid-2,.steps,.foot-grid{grid-template-columns:1fr;}
+  section{padding:42px 0;}
+  .prose,.tool,.card{padding:20px;}
+  .hero p.lead{font-size:.96rem;}
+  .foot-bottom{flex-direction:column;}
+}
+</style>
+    <script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap head-inner">
+    <a class="logo" href="#top" aria-label="神马首页">
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+        <rect width="64" height="64" rx="14" fill="#1b3a8c"/>
+        <path d="M16 44c0-10 7-18 16-18s16 8 16 18" fill="none" stroke="#ffb703" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="32" cy="24" r="5" fill="#ffffff"/>
+      </svg>
+      <span>神马</span>
+    </a>
+    <nav class="nav" aria-label="主导航">
+      <a href="#howto">使用方法</a>
+      <a href="#skills">检索技巧</a>
+      <a href="#tool">快捷检索</a>
+      <a href="#faq">常见问题</a>
+      <a href="#about">关于本站</a>
+      <a class="nav-cta" href="#tool">开始检索</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- Hero -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="kicker">移动搜索 · 使用指南</span>
+        <h1 id="hero-title">神马</h1>
+        <p class="lead">神马是一套面向移动端的信息检索入口。本页把神马搜索的入口位置、关键词组织方式、结果筛选与移动端阅读要点整理成一条清晰路径，帮助你在手机上更快找到需要的内容。</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#tool">进入快捷检索</a>
+          <a class="btn btn-ghost" href="#howto">查看使用方法</a>
+        </div>
+      </div>
+      <div class="hero-figure" aria-hidden="true">
+        <div class="bar"><span></span><span></span><span></span></div>
+        <div class="qbox">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#1b3a8c" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+          输入关键词，例如：通勤路线
+        </div>
+        <ul class="hero-list">
+          <li>短词优先，一次只问一件事</li>
+          <li>限定词放在关键词之后</li>
+          <li>结果页先看摘要再点开</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- How to -->
+  <section id="howto">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="tag">使用方法</span>
+        <h2>从打开神马到拿到答案的四个步骤</h2>
+        <p>神马的检索流程并不复杂，难点在于把想找的东西说清楚。下面四步覆盖从进入入口到确认结果的完整过程。</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <h3>找到入口</h3>
+          <p>在手机浏览器地址栏或搜索框输入神马，进入搜索首页，搜索框通常位于页面顶部或中部显眼位置。</p>
+        </div>
+        <div class="step">
+          <h3>写出关键词</h3>
+          <p>用两到四个词描述目标，例如“公交 换乘 查询”。去掉“请问”“帮我”等口语前缀，让神马直接理解意图。</p>
+        </div>
+        <div class="step">
+          <h3>看结果摘要</h3>
+          <p>神马的结果页先给出标题与摘要，摘要能回答的问题不必逐条点开，节省移动流量与时间。</p>
+        </div>
+        <div class="step">
+          <h3>逐步收窄</h3>
+          <p>结果偏多时补充限定词，如城市名、时间或类型；结果偏少时减少限定词，回到更宽的表达。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="tag">检索技巧</span>
+        <h2>让神马搜索更准确的三类关键词写法</h2>
+        <p>关键词的组织方式直接决定结果质量。以下三类写法可单独使用，也可组合，适合日常查询与临时找资料两种场景。</p>
+      </div>
+      <div class="grid-3">
+        <article class="card">
+          <div class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#1b3a8c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+          </div>
+          <h3>由宽到窄</h3>
+          <p>先输入主题词看结果范围，再补充限定词。适合对某个领域不熟悉、需要先了解全貌的查询。</p>
+          <ul>
+            <li>第一轮：只写主题词</li>
+            <li>第二轮：加地点或时间</li>
+            <li>第三轮：加类型或格式</li>
+          </ul>
+        </article>
+        <article class="card">
+          <div class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#1b3a8c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>
+          </div>
+          <h3>限定词后置</h3>
+          <p>把“教程”“价格”“电话”“地址”等限定词放在主题词之后，神马的结果排序通常更贴合需求。</p>
+          <ul>
+            <li>主题词 + 教程</li>
+            <li>主题词 + 对比</li>
+            <li>主题词 + 附近</li>
+          </ul>
+        </article>
+        <article class="card">
+          <div class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#1b3a8c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19V9M12 19V5M19 19v-6"/></svg>
+          </div>
+          <h3>用词一致</h3>
+          <p>同一概念尽量使用统一说法，避免同一句里混用多种同义词，减少结果分散。</p>
+          <ul>
+            <li>选定一个主词反复用</li>
+            <li>同义词放在括号补充</li>
+            <li>专有名词保持原写法</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tool -->
+  <section id="tool">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="tag">快捷检索</span>
+        <h2>按类别查看神马常用检索场景</h2>
+        <p>输入关键词或点击类别，可筛选本页整理的常用检索场景，帮助你确定该用哪种关键词结构。筛选结果仅在本页展示。</p>
+      </div>
+      <div class="tool">
+        <div class="tool-row">
+          <input type="text" id="q" placeholder="输入关键词，例如：路线、教程、对比" aria-label="检索场景关键词">
+          <button class="btn btn-primary" id="searchBtn" type="button">筛选场景</button>
+        </div>
+        <div class="chips" id="chips" role="group" aria-label="场景类别">
+          <button class="chip active" type="button" data-cat="全部">全部</button>
+          <button class="chip" type="button" data-cat="出行">出行</button>
+          <button class="chip" type="button" data-cat="学习">学习</button>
+          <button class="chip" type="button" data-cat="生活">生活</button>
+          <button class="chip" type="button" data-cat="工具">工具</button>
+        </div>
+        <div class="results" id="results" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Prose -->
+  <section id="about">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="tag">关于本站</span>
+        <h2>这份神马指南适合谁阅读</h2>
+      </div>
+      <div class="prose">
+        <h3>面向移动端的信息查找者</h3>
+        <p>本页讨论的是神马作为移动搜索入口的日常用法，而非某款具体应用的版本说明。文中的步骤与关键词写法基于通用检索经验整理，适用于手机浏览器访问搜索页的场景。若你所使用的终端界面与描述不同，以实际页面为准。</p>
+        <h3>神马的使用边界</h3>
+        <p>神马提供的是信息检索入口，结果内容来自被索引的网页。页面摘要是否准确、链接是否可打开，取决于来源网站自身的状态。遇到摘要与正文不符时，建议回到结果页换一种关键词重新检索，而不是在单个链接上反复尝试。</p>
+        <h3>把检索当作可复用的方法</h3>
+        <p>一次成功的检索往往来自两三轮调整。先在神马输入主题词确认方向，再用限定词收窄范围，最后用一致的用词确认结果。这套顺序稳定、可重复，比记住某个固定句式更有用。</p>
+        <p>本页的快捷检索区域只做场景归类，不连接外部服务，也不保存你输入的词。所有内容以静态方式呈现，便于在移动网络下快速加载与阅读。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="tag">常见问题</span>
+        <h2>使用神马搜索时的四个常见疑问</h2>
+      </div>
+      <div class="faq">
+        <details open>
+          <summary>神马搜索结果很少怎么办？</summary>
+          <p>通常是关键词过细。先去掉落后的限定词，只保留主题词重新检索，再从结果中挑选接近的表述作为新关键词。由宽到窄比一步到位更容易命中。</p>
+        </details>
+        <details>
+          <summary>为什么摘要里有的信息点开后找不到？</summary>
+          <p>摘要由搜索系统根据页面内容生成，来源页面更新后可能出现差异。此时以打开后的页面正文为准，或换一个来源链接核对。</p>
+        </details>
+        <details>
+          <summary>手机上如何减少翻页次数？</summary>
+          <p>把最关键的限定词放在关键词靠前位置，并在结果页优先阅读摘要完整、标题具体的条目。通常前三到五条即可判断方向是否正确。</p>
+        </details>
+        <details>
+          <summary>神马适合查专业性很强的内容吗？</summary>
+          <p>可以作为起点，用于确认术语的标准写法。确定术语后，再用完整专有名词检索，结果会更集中。涉及具体数据时应回到原始来源核对。</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="logo" href="#top">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <rect width="64" height="64" rx="14" fill="#1b3a8c"/>
+            <path d="M16 44c0-10 7-18 16-18s16 8 16 18" fill="none" stroke="#ffb703" stroke-width="5" stroke-linecap="round"/>
+            <circle cx="32" cy="24" r="5" fill="#ffffff"/>
+          </svg>
+          <span>神马</span>
+        </a>
+        <p>整理神马搜索的入口、关键词写法与结果筛选方法，面向手机端的日常信息查找需求。</p>
+      </div>
+      <div>
+        <h4>页面导航</h4>
+        <ul>
+          <li><a href="#howto">使用方法</a></li>
+          <li><a href="#skills">检索技巧</a></li>
+          <li><a href="#tool">快捷检索</a></li>
+          <li><a href="#faq">常见问题</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>资源</h4>
+        <ul>
+          <li><a href="#about">关于本站</a></li>
+          <li><a href="#" data-download-placeholder="true" aria-disabled="true" tabindex="-1" style="pointer-events:none;">下载检索要点清单</a></li>
+          <li><a href="#top">回到顶部</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>神马 · 移动搜索使用指南</span>
+      <span>内容为通用检索经验整理，具体界面以实际页面为准。</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var data = [
+    {cat:'出行', title:'公交与地铁路线查询', desc:'关键词写法：城市名 + 起点 + 终点 + 换乘。先确认线路名称，再补充时间限定。', kw:'路线 出行 公交 地铁 换乘'},
+    {cat:'出行', title:'附近地点检索', desc:'关键词写法：主题词 + 附近。手机端优先阅读带距离标注的摘要条目。', kw:'附近 出行 地点 距离'},
+    {cat:'学习', title:'术语与概念确认', desc:'关键词写法：完整专有名词。先用神马确认标准写法，再检索详细解释。', kw:'学习 教程 术语 概念'},
+    {cat:'学习', title:'教程类内容查找', desc:'关键词写法：主题词 + 教程。结果偏多时追加难度或版本限定。', kw:'学习 教程 步骤 入门'},
+    {cat:'生活', title:'服务电话与地址', desc:'关键词写法：机构名 + 电话 或 机构名 + 地址，限定词后置更贴合意图。', kw:'生活 电话 地址 服务'},
+    {cat:'生活', title:'价格与对比信息', desc:'关键词写法：主题词 + 对比。阅读摘要时注意区分报价口径与时间。', kw:'生活 价格 对比 选择'},
+    {cat:'工具', title:'格式与用法查询', desc:'关键词写法：工具名 + 用法。专有名词保持原写法，避免同义替换。', kw:'工具 用法 格式 设置'},
+    {cat:'工具', title:'版本与更新说明', desc:'关键词写法：工具名 + 版本号。以来源页面的发布日期作为判断依据。', kw:'工具 版本 更新 说明'}
+  ];
+
+  var cat = '全部';
+  var q = '';
+  var chips = document.getElementById('chips');
+  var results = document.getElementById('results');
+  var input = document.getElementById('q');
+
+  function render(){
+    var kw = q.trim().toLowerCase();
+    var list = data.filter(function(item){
+      var okCat = (cat === '全部' || item.cat === cat);
+      var okKw = !kw || (item.title + item.desc + item.kw).toLowerCase().indexOf(kw) > -1;
+      return okCat && okKw;
+    });
+    if(!list.length){
+      results.innerHTML = '<p class="empty">没有匹配的场景，试试减少关键词或切换类别。</p>';
+      return;
+    }
+    results.innerHTML = list.map(function(item){
+      return '<div class="result"><h4>'+item.title+'</h4><p>'+item.desc+'</p><div class="meta">类别：'+item.cat+'</div></div>';
+    }).join('');
+  }
+
+  chips.addEventListener('click', function(e){
+    var btn = e.target.closest('.chip');
+    if(!btn) return;
+    cat = btn.getAttribute('data-cat');
+    Array.prototype.forEach.call(chips.querySelectorAll('.chip'), function(c){
+      c.classList.toggle('active', c === btn);
+    });
+    render();
+  });
+
+  document.getElementById('searchBtn').addEventListener('click', function(){
+    q = input.value;
+    render();
+  });
+
+  input.addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){
+      e.preventDefault();
+      q = input.value;
+      render();
+    }
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
